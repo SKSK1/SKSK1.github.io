@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Terminal.js Demo</title>
+    <link rel="stylesheet" href="terminal.css">
+    <style>
+      body {
+        background: black;
+        color:      white;
+        
+        width:  100%;
+        height: 100%;
+        
+        padding: 0;
+        margin:  0;
+        
+        box-sizing: border-box;        
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Terminal.js Demo</h1>
+    <div id="terminal">
+      <p class="hidden">
+        <span class="prompt">guest@terminal.js &sim; &gt; </span>
+        <span contenteditable="true" class="input"> </span>
+      </p>
+    </div>
+    <script src="terminal.js"></script>
+    <script>
+      var commands = {};
+      Terminal.init(document.getElementById("terminal"), commands);
+      
+      let wsc = new WebSocket("ws://119.236.236.226:25580")
+      let time
+      let info = "[INFO]"
+      let error = "[ERROR]"
+      let warn = "[WARNING]"
+
+      function gettime(){
+        let date = new Date();
+        let h = String(date.getHours());
+        let m = String(date.getMinutes());
+        let s = String(date.getSeconds());
+        time = "["+h+":"+m+":"+s+"]";
+        return time;
+      }
+      commands.backup = function(){
+        gettime()
+        if(wsc.onerror){return time+error+""}
+        else{return time+info+"saving..."}
+      }
+    </script>
+  </body>
+</html>
