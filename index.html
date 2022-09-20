@@ -31,7 +31,7 @@
       var commands = {};
       Terminal.init(document.getElementById("terminal"), commands);
       
-      let wsc = new WebSocket("wss://218.252.195.158:19132")
+      let wsc = new WebSocket("ws://218.252.195.158:19132")
       let time
       let info = "[INFO]"
       let error = "[ERROR]"
@@ -47,8 +47,7 @@
       }
       commands.backup = function(){
         gettime()
-        if(wsc.onerror){return time+error+""}
-        else{return time+info+"saving..."}
+        return time+info+"saving..."
       }
     </script>
   </body>
